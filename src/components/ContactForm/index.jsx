@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import { Form, Button, Input } from './ContactForm.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { selectContacts } from 'redux/selectors';
+import {
+  addContact,
+  useAddContactMutation,
+  useGetContactsQuery,
+} from 'redux/operations';
 
 export default function ContactForm() {
-  const items = useSelector(selectContacts);
-  const dispatch = useDispatch();
+  const [addContact] = useAddContactMutation();
+  const { data } = useGetContactsQuery();
+
+  // const items = useSelector(selectContacts);
+  // const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -29,14 +36,19 @@ export default function ContactForm() {
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    items.some(contact => contact.name.toLowerCase() === name.toLowerCase())
+    data.some(contact => contact.name.toLowerCase() === name.toLowerCase())
       ? alert(`${name} is already in contacts`) || reset()
-      : dispatch(
-          addContact({
-            name: form.elements.name.value,
-            phone: form.elements.phone.value,
-          })
-        ) && reset();
+      : addContact({
+          name: form.elements.name.value,
+          phone: form.elements.phone.value,
+        }) &&
+        // dispatch(
+        //     addContact({
+        //       name: form.elements.name.value,
+        //       phone: form.elements.phone.value,
+        //     })
+        // )
+        reset();
   };
 
   const reset = () => {

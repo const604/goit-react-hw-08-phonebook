@@ -1,20 +1,23 @@
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
-import { fetchContacts } from 'redux/operations';
-import { useEffect } from 'react';
+import { useGetContactsQuery } from 'redux/operations';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
+// import { fetchContacts } from 'redux/operations';
+// import { useEffect } from 'react';
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const items = useSelector(selectContacts);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { data, error, isLoading } = useGetContactsQuery();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // const items = useSelector(selectContacts);
+  // const isLoading = useSelector(selectIsLoading);
+  // const error = useSelector(selectError);
+
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   return (
     <div
@@ -29,7 +32,8 @@ export const App = () => {
       {error && <p>{error}</p>}
       <h2>Contacts</h2>
       <Filter />
-      {items && <ContactList />}
+      {data && <ContactList />}
+      {/* {items && <ContactList />} */}
     </div>
   );
 };
