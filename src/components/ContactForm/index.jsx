@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { Form, Button, Input } from './ContactForm.styled';
+import { useAddContactMutation, useGetContactsQuery } from 'redux/operations';
+// import { addContact } from 'redux/operations';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { selectContacts } from 'redux/selectors';
-import {
-  addContact,
-  useAddContactMutation,
-  useGetContactsQuery,
-} from 'redux/operations';
 
 export default function ContactForm() {
   const [addContact] = useAddContactMutation();

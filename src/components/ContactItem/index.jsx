@@ -1,12 +1,13 @@
 import React from 'react';
 import { Item, Button } from './ContactItem.styled';
+import { useDeleteContactMutation } from 'redux/operations';
+// import { deleteContact } from 'redux/operations';
 // import { useDispatch } from 'react-redux';
-import { deleteContact, useDeleteContactMutation } from 'redux/operations';
 
 const ContactItem = ({ id, name, phone }) => {
   const [deleteContact, result] = useDeleteContactMutation();
 
-// const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handleDelete = () => deleteContact(id);
   // const handleDelete = () => dispatch(deleteContact(id));
 
