@@ -1,28 +1,30 @@
 import React from 'react';
 import ContactItem from '../ContactItem';
 import { useSelector } from 'react-redux';
-import { selectFilter } from 'redux/selectors';
-import { useGetContactsQuery } from 'redux/operations';
-// import { selectContacts} from 'redux/selectors';
-
+import { selectFilter } from 'redux/contacts/selectors';
+import { selectContacts } from 'redux/contacts/selectors';
+import { Container } from './ContactList.styled';
 
 const ContactList = () => {
-  const { data } = useGetContactsQuery();
-  // const items = useSelector(selectContacts);
-  
+  const items = useSelector(selectContacts);
+
   const filter = useSelector(selectFilter);
 
   const getFilterContacts = () => {
     const normalizedFilter = filter.toLowerCase();
 
-    return data.filter(contact =>
+    return items.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
 
-  return getFilterContacts().map(({ name, phone, id }) => (
-    <ContactItem key={id} id={id} name={name} phone={phone} />
-  ));
+  return (
+    <Container>
+      {getFilterContacts().map(({ name, number, id }) => (
+        <ContactItem key={id} id={id} name={name} phone={number} />
+      ))}
+    </Container>
+  );
 };
 
 export default ContactList;

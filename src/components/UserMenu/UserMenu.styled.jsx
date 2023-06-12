@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
-export const Item = styled.li`
-  padding-left: 20px;
-  margin-bottom: 10px;
+export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: end;
-  line-height: 1.5;
+  align-items: center;
+  gap: 12px;
+`;
+
+
+export const Username = styled.p`
+  font-weight: 700;
+  color: yellow;
 `;
 
 export const Button = styled.button`
@@ -28,3 +31,4 @@ export const Button = styled.button`
     opacity: 1;
   }
 `;
+
